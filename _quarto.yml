@@ -1,0 +1,11 @@
+project:
+  type: website
+
+website:
+  title: "My Personal Website"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "About"
+        href: about.qmd
