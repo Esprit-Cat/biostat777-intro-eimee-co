@@ -1,6 +1,8 @@
 ---
 title: "Example Analysis"
-format: html
+format: 
+  html:
+    theme: default
 bibliography: references.bib
 ---
 This analysis follows guidance from a project example [@hicks2025].  
@@ -116,7 +118,7 @@ see above
 12. Your analysis must include the use of at least 1 margin content.
 
 ::: {.margin}
-**Note:** This is margin content. Let me know if it works
+**Note:** This is a margin note. Attempt 3
 :::
 
 13. You must summarize your analysis and/or results with a paragraph (4-6 sentences).
