@@ -20,7 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -133,29 +188,222 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site # Example Analysis</p>
-<p>A data analysis page called ‘Example analysis’. You can pick any dataset you wish you analyze.</p>
-<p>In this webpage, you will analyze a dataset and summarize the results. The requirements for this webpage are the following:</p>
+<p>This analysis follows guidance from a project example <span class="citation" data-cites="hicks2025">(<a href="#ref-hicks2025" role="doc-biblioref">Hicks 2025</a>)</span>.<br>
+Some insights were generated using AI assistance <span class="citation" data-cites="chatgpt">(<a href="#ref-chatgpt" role="doc-biblioref">OpenAI 2025</a>)</span>.<br>
+We also included a personal image for illustration purposes <span class="citation" data-cites="personalphoto">(<a href="#ref-personalphoto" role="doc-biblioref">Co 2024</a>)</span>.</p>
+<p>About this site: A data analysis page called ‘Example analysis’. The requirements for this webpage are the following:</p>
 <ol type="1">
-<li>You must describe what is the question you aim to answer with the data and data analysis.</li>
-<li>You must describe who is the intended audience for the data analysis.</li>
-<li>You must describe and link to where the original data come from that you chose.</li>
-<li>You must include a link to a data dictionary for the data or create one inside the webpage.</li>
-<li>Your analysis must include some minimal form of data wrangling with you using at least five different functions from dplyr or tidyr.</li>
-<li>Your analysis should include at least three plots with you using at least three different geom_<em>() functions from ggplot2 (or another package with geom_</em>() functions).</li>
+<li><p>You must describe what is the question you aim to answer with the data and data analysis. Average age of students</p></li>
+<li><p>You must describe who is the intended audience for the data analysis. Class TAs.</p></li>
+<li><p>You must describe and link to where the original data come from that you chose.</p></li>
+</ol>
+<p>I used the curl command to get the database from this particular page: curl -L -o students.csv https://raw.githubusercontent.com/stephaniehicks/jhustatprogramming2025/main/projects/01-project/students.csv</p>
+<p>This came from Part 2 of Project 1 of the course: https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html</p>
+<ol start="4" type="1">
+<li><p>You must include a link to a data dictionary for the data or create one inside the webpage. Below is the data dictionary for this data frame. Variable | Description | Type ID | ID | Character Name | Name | Character Age | Age | Numeric Gender | Gender | Character Grade | Grade | Numeric Subject | Subject | Character</p></li>
+<li><p>Your analysis must include some minimal form of data wrangling with you using at least five different functions from dplyr or tidyr.</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.1.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"students.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  6 variables:
+ $ ID     : int  1 2 3 4 5 6 7 8 9 10
+ $ Name   : chr  "Alice" "Bob" "Charlie" "Diana" ...
+ $ Age    : int  20 22 23 21 20 22 23 21 20 22
+ $ Gender : chr  "F" "M" "M" "F" ...
+ $ Grade  : int  88 76 90 85 92 72 78 88 85 79
+ $ Subject: chr  "Math" "History" "Math" "Science" ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mutate</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">ifelse</span>(Subject <span class="sc">==</span> <span class="st">"Math"</span>, <span class="st">"Mathematics"</span>, Subject))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   ID    Name Age Gender Grade     Subject
+1   1   Alice  20      F    88 Mathematics
+2   2     Bob  22      M    76     History
+3   3 Charlie  23      M    90 Mathematics
+4   4   Diana  21      F    85     Science
+5   5     Eve  20      F    92 Mathematics
+6   6   Frank  22      M    72     History
+7   7   Grace  23      F    78     Science
+8   8   Heidi  21      F    88 Mathematics
+9   9    Ivan  20      M    85     Science
+10 10    Judy  22      F    79     History</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Group_by</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarise</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Mean</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>students_summary <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Subject) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Average_Grade =</span> <span class="fu">mean</span>(Grade), <span class="at">Count =</span> <span class="fu">n</span>())</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (students_summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  Subject     Average_Grade Count
+  &lt;chr&gt;               &lt;dbl&gt; &lt;int&gt;
+1 History              75.7     3
+2 Mathematics          89.5     4
+3 Science              82.7     3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Arrange</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>students_sorted <span class="ot">&lt;-</span> students<span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Grade))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(students_sorted)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   ID    Name Age Gender Grade     Subject
+1   5     Eve  20      F    92 Mathematics
+2   3 Charlie  23      M    90 Mathematics
+3   1   Alice  20      F    88 Mathematics
+4   8   Heidi  21      F    88 Mathematics
+5   4   Diana  21      F    85     Science
+6   9    Ivan  20      M    85     Science
+7  10    Judy  22      F    79     History
+8   7   Grace  23      F    78     Science
+9   2     Bob  22      M    76     History
+10  6   Frank  22      M    72     History</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>students_filtered <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Grade <span class="sc">&gt;</span> <span class="dv">80</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(students_filtered)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID    Name Age Gender Grade     Subject
+1  1   Alice  20      F    88 Mathematics
+2  3 Charlie  23      M    90 Mathematics
+3  4   Diana  21      F    85     Science
+4  5     Eve  20      F    92 Mathematics
+5  8   Heidi  21      F    88 Mathematics
+6  9    Ivan  20      M    85     Science</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Your analysis should include at least three plots with you using at least three different geom_<em>() functions from ggplot2 (or another package with geom_</em>() functions). ::: {.callout-note} Here are the graphs :::</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students_summary, <span class="fu">aes</span>(Subject, Average_Grade, <span class="at">fill =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exampleanalysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students_summary, <span class="fu">aes</span>(<span class="at">x =</span> Subject, <span class="at">y =</span> Average_Grade, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exampleanalysis_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(Subject, Grade, <span class="at">fill =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exampleanalysis_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
 <li>Plots should have titles, subtitles, captions, and human-understandable axis labels.</li>
+</ol>
+<p>See above, for labels</p>
+<ol start="8" type="1">
 <li>At least one plot should using a type of faceting (facet_grid() or facet_wrap()).</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(<span class="at">x =</span> Subject, <span class="at">y =</span> Grade, <span class="at">fill =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Gender) <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exampleanalysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="9" type="1">
 <li>Your analysis must include one image or table (not one you created yourself, but one you have saved locally or one from the web).</li>
-<li>Your analysis must include at least two different callout blocks.</li>
-<li>Your analysis must include a .bib file, which you use to reference at least three unique citations. For example, it could be to a website or paper from where the original data came from or it could be to a paper describing a method you are using to analyze the data.</li>
-<li>Your analysis must include the use of at least 1 margin content.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>In summary, it is better to be a cat.</strong></p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">include_graphics</span>(<span class="st">"images/2.jpg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="images/2.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="10" type="1">
+<li><p>Your analysis must include at least two different callout blocks. see above</p></li>
+<li><p>Your analysis must include a .bib file, which you use to reference at least three unique citations. For example, it could be to a website or paper from where the original data came from or it could be to a paper describing a method you are using to analyze the data. see above</p></li>
+<li><p>Your analysis must include the use of at least 1 margin content.</p></li>
+</ol>
+<div class="margin">
+<p><strong>Note:</strong> Let me know if this margin content works</p>
+</div>
+<ol start="13" type="1">
 <li>You must summarize your analysis and/or results with a paragraph (4-6 sentences).</li>
+</ol>
+<p>I apologize. I didn’t think I could learn a new interface (visual studio) and 2 new languages (command line input, quatro) in 1 week and actually choose, examine and analyze a legit database well (which takes time). So I did the basic and used basic data already available in the class site for this exercise’s purposes.</p>
+<p>Above you can see the average grade, as well as illustration of the students’ grades separated by subject. Functions from tidyverse can help make sense of the data by organizing it, such as through filter, arrange, summarise and group_by. Which can help us further explore the data set to uncover the relationships between variables. Graphs are also very helpful to illustrate findings, and can be more intuitive. The other features mentioned and listed above are helpful for people who are going through your code to understand what you are doing. It makes what you do more readable/understandable. This is a very important aspect of coding, but is often neglected.</p>
+<ol start="14" type="1">
 <li>At the end of the data analysis, list out each of the functions you used from each of the packages (dplyr, tidyr, and ggplot2) to help the TA with respect to making sure you met all the requirements described above.</li>
 </ol>
+<p>tidyverse: mutate, group_by, summarise, arrange, filter ggplot: geom_boxplot(), geom_col(), geom_line(), geom_point(), geom_boxplot</p>
 
 
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-personalphoto" class="csl-entry" role="listitem">
+Co, Eimee. 2024. <span>“Chill.”</span>
+</div>
+<div id="ref-hicks2025" class="csl-entry" role="listitem">
+Hicks, Stephanie. 2025. <span>“Project 01: Data Analysis.”</span> 2025. <a href="https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html">https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html</a>.
+</div>
+<div id="ref-chatgpt" class="csl-entry" role="listitem">
+OpenAI. 2025. <span>“ChatGPT.”</span> <a href="https://openai.com/chatgpt">https://openai.com/chatgpt</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

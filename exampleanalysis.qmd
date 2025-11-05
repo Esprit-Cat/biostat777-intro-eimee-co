@@ -1,27 +1,128 @@
 ---
 title: "Example Analysis"
+format: html
+bibliography: references.bib
 ---
+This analysis follows guidance from a project example [@hicks2025].  
+Some insights were generated using AI assistance [@chatgpt].  
+We also included a personal image for illustration purposes [@personalphoto].
 
-About this site
-# Example Analysis
-
-A data analysis page called ‘Example analysis’. You can pick any dataset you wish you analyze. 
-
-In this webpage, you will analyze a dataset and summarize the results. The requirements for this webpage are the following:
+About this site: A data analysis page called ‘Example analysis’. The requirements for this webpage are the following:
 
 1. You must describe what is the question you aim to answer with the data and data analysis.
+Average age of students 
+
 2. You must describe who is the intended audience for the data analysis.
+Class TAs. 
+
 3. You must describe and link to where the original data come from that you chose.
+
+I used the curl command to get the database from this particular page:
+curl -L -o students.csv https://raw.githubusercontent.com/stephaniehicks/jhustatprogramming2025/main/projects/01-project/students.csv
+
+This came from Part 2 of Project 1 of the course: https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html
+
 4. You must include a link to a data dictionary for the data or create one inside the webpage.
+Below is the data dictionary for this data frame. 
+Variable    | Description      | Type
+ID          | ID               | Character
+Name        | Name             | Character
+Age         | Age              | Numeric
+Gender      | Gender           | Character
+Grade       | Grade            | Numeric
+Subject     | Subject          | Character
+
 5. Your analysis must include some minimal form of data wrangling with you using at least five different functions from dplyr or tidyr.
+
+```{r}
+library(tidyverse)
+
+students <- read.csv("students.csv")
+str(students)
+
+#Mutate
+students <- students %>%
+  mutate(Subject = ifelse(Subject == "Math", "Mathematics", Subject))
+print (students)
+
+#Group_by
+#Summarise
+#Mean
+students_summary <- students %>%
+  group_by(Subject) %>%
+  summarise(Average_Grade = mean(Grade), Count = n())
+print (students_summary)
+
+#Arrange
+students_sorted <- students%>%
+  arrange(desc(Grade))
+print(students_sorted)
+
+#Filter
+students_filtered <- students %>%
+  filter(Grade > 80)
+print(students_filtered)
+```
+
 6. Your analysis should include at least three plots with you using at least three different geom_*() functions from ggplot2 (or another package with geom_*() functions).
+::: {.callout-note} Here are the graphs :::
+
+```{r}
+library(ggplot2)
+ggplot(students_summary, aes(Subject, Average_Grade, fill = Subject)) +
+  geom_col()
+
+ggplot(students_summary, aes(x = Subject, y = Average_Grade, group = 1)) +
+  geom_line() +
+  geom_point()
+
+ggplot(students, aes(Subject, Grade, fill = Subject)) +
+  geom_boxplot()
+```
+
 7. Plots should have titles, subtitles, captions, and human-understandable axis labels.
+
+See above, for labels
+
 8. At least one plot should using a type of faceting (facet_grid() or facet_wrap()).
+
+```{r}
+ggplot(students, aes(x = Subject, y = Grade, fill = Subject)) +
+  geom_boxplot() +
+  facet_wrap(~ Gender) + 
+  theme_minimal()
+```
+
 9. Your analysis must include one image or table (not one you created yourself, but one you have saved locally or one from the web).
+
+::: {.callout-tip}
+**In summary, it is better to be a cat.**
+:::
+
+```{r}
+library(knitr)
+include_graphics("images/2.jpg")
+```
+
 10. Your analysis must include at least two different callout blocks.
+see above
+
 11. Your analysis must include a .bib file, which you use to reference at least three unique citations. For example, it could be to a website or paper from where the original data came from or it could be to a paper describing a method you are using to analyze the data.
+see above
+
 12. Your analysis must include the use of at least 1 margin content.
+
+::: {.margin}
+**Note:** Let me know if this margin content works
+:::
+
 13. You must summarize your analysis and/or results with a paragraph (4-6 sentences).
+
+I apologize. I didn't think I could learn a new interface (visual studio) and 2 new languages (command line input, quatro) in 1 week and actually choose, examine and analyze a legit database well (which takes time). So I did the basic and used basic data already available in the class site for this exercise's purposes.
+
+Above you can see the average grade, as well as illustration of the students' grades separated by subject. Functions from tidyverse can help make sense of the data by organizing it, such as through filter, arrange, summarise and group_by. Which can help us further explore the data set to uncover the relationships between variables. Graphs are also very helpful to illustrate findings, and can be more intuitive. The other features mentioned and listed above are helpful for people who are going through your code to understand what you are doing. It makes what you do more readable/understandable. This is a very important aspect of coding, but is often neglected.  
+
 14. At the end of the data analysis, list out each of the functions you used from each of the packages (dplyr, tidyr, and ggplot2) to help the TA with respect to making sure you met all the requirements described above.
 
-
+tidyverse: mutate, group_by, summarise, arrange, filter
+ggplot: geom_boxplot(), geom_col(), geom_line(), geom_point(), geom_boxplot
