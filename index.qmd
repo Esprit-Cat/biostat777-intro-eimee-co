@@ -7,4 +7,5 @@ format: html
 
 Hi! I’m Eimee. I enjoy eating, sleeping and cats. 
 
-![Something I enjoy](https://raw.githubusercontent.com/jhu-statprogramming-fall-2025/project01-Esprit-Cat/main/images/1.jpg)
+![Something I enjoy]("images/1.jpg")
+# does not work either ![Something I enjoy](https://raw.githubusercontent.com/jhu-statprogramming-fall-2025/project01-Esprit-Cat/main/images/1.jpg)
