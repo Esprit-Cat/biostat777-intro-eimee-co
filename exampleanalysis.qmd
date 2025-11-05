@@ -65,7 +65,10 @@ print(students_filtered)
 ```
 
 6. Your analysis should include at least three plots with you using at least three different geom_*() functions from ggplot2 (or another package with geom_*() functions).
-::: {.callout-note} Here are the graphs :::
+
+::: {.callout-note} 
+Here are the graphs 
+:::
 
 ```{r}
 library(ggplot2)
@@ -113,7 +116,7 @@ see above
 12. Your analysis must include the use of at least 1 margin content.
 
 ::: {.margin}
-**Note:** Let me know if this margin content works
+**Note:** This is margin content. Let me know if it works
 :::
 
 13. You must summarize your analysis and/or results with a paragraph (4-6 sentences).
