@@ -117,17 +117,16 @@ see above
 
 12. Your analysis must include the use of at least 1 margin content.
 
-::: {.margin}
+::: {.column-margin}
 **Note:** This is a margin note. Attempt 3
 :::
 
-13. You must summarize your analysis and/or results with a paragraph (4-6 sentences).
-
-I apologize. I didn't think I could learn a new interface (visual studio) and 2 new languages (command line input, quatro) in 1 week and actually choose, examine and analyze a legit database well (which takes time). So I did the basic and used basic data already available in the class site for this exercise's purposes.
-
-Above you can see the average grade, as well as illustration of the students' grades separated by subject. Functions from tidyverse can help make sense of the data by organizing it, such as through filter, arrange, summarise and group_by. Which can help us further explore the data set to uncover the relationships between variables. Graphs are also very helpful to illustrate findings, and can be more intuitive. The other features mentioned and listed above are helpful for people who are going through your code to understand what you are doing. It makes what you do more readable/understandable. This is a very important aspect of coding, but is often neglected.  
+ 
 
 14. At the end of the data analysis, list out each of the functions you used from each of the packages (dplyr, tidyr, and ggplot2) to help the TA with respect to making sure you met all the requirements described above.
 
 tidyverse: mutate, group_by, summarise, arrange, filter
 ggplot: geom_boxplot(), geom_col(), geom_line(), geom_point(), geom_boxplot
+
+
+Meow

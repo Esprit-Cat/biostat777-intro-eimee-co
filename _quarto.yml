@@ -9,3 +9,5 @@ website:
         href: index.qmd
       - text: "About"
         href: about.qmd
+      - text: "Research"
+        href: exampleanalysis.qmd
