@@ -12,9 +12,11 @@ We also included a personal image for illustration purposes [@personalphoto].
 About this site: A data analysis page called ‘Example analysis’. The requirements for this webpage are the following:
 
 1. You must describe what is the question you aim to answer with the data and data analysis.
-Average age of students 
+
+Grade by Subject.
 
 2. You must describe who is the intended audience for the data analysis.
+
 Class TAs. 
 
 3. You must describe and link to where the original data come from that you chose.
@@ -26,14 +28,15 @@ This came from Part 2 of Project 1 of the course: https://www.stephaniehicks.com
 
 4. You must include a link to a data dictionary for the data or create one inside the webpage.
 Below is the data dictionary for this data frame. 
-Variable    | Description      | Type
-ID          | ID               | Character
-Name        | Name             | Character
-Age         | Age              | Numeric
-Gender      | Gender           | Character
-Grade       | Grade            | Numeric
-Subject     | Subject          | Character
-
+```{r}
+data_dictionary <- data.frame(
+  Variable = c("ID", "Name", "Age", "Gender", "Grade", "Subject"),
+  Description = c("ID", "Name", "Age", "Gender", "Grade", "Subject"),
+  Type = c("Character", "Character", "Numeric", "Character", "Numeric", "Character"),
+  stringsAsFactors = FALSE
+)
+print(data_dictionary)
+```
 5. Your analysis must include some minimal form of data wrangling with you using at least five different functions from dplyr or tidyr.
 
 ```{r}
