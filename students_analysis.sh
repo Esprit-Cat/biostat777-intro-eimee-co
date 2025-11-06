@@ -1,8 +1,4 @@
 
----
-title: "Part 2. This part had a lot of help from chatGPT for code, debugging and understanding the code"
----
-
 Use wget or curl to download the students.csv file locally from here.
 # Add your solution here
 
@@ -117,3 +113,7 @@ Put all the commands into a shell script (.sh) file and run the command below to
 # Add your solution here 
 Wave@Esprits-MacBook-Pro MyWebsite % touch students_analysis.sh
 Wave@Esprits-MacBook-Pro MyWebsite % chmod +x students_analysis.sh  
+
+
+cd new_folder
+ls -lsa

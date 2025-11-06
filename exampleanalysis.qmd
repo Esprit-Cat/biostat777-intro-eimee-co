@@ -74,15 +74,39 @@ Here are the graphs
 
 ```{r}
 library(ggplot2)
+
 ggplot(students_summary, aes(Subject, Average_Grade, fill = Subject)) +
-  geom_col()
+  geom_col() +
+  labs(
+    title = "Average Grade by Subject",
+    subtitle = "Comparison of mean grades across all subjects",
+    x = "Subject",
+    y = "Average Grade"
+  ) +
+  theme_minimal()
+
 
 ggplot(students_summary, aes(x = Subject, y = Average_Grade, group = 1)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  labs(
+    title = "Average Grade Trend by Subject",
+    subtitle = "Line chart showing how average grades vary by subject",
+    x = "Subject",
+    y = "Average Grade"
+  ) +
+  theme_light()
+
 
 ggplot(students, aes(Subject, Grade, fill = Subject)) +
-  geom_boxplot()
+  geom_boxplot() +
+  labs(
+    title = "Grade Distribution by Subject",
+    subtitle = "Boxplots showing spread and outliers in student grades",
+    x = "Subject",
+    y = "Grade"
+  ) +
+  theme_minimal()
 ```
 
 7. Plots should have titles, subtitles, captions, and human-understandable axis labels.
@@ -95,7 +119,11 @@ See above, for labels
 ggplot(students, aes(x = Subject, y = Grade, fill = Subject)) +
   geom_boxplot() +
   facet_wrap(~ Gender) + 
-  theme_minimal()
+  theme_minimal() +
+  labs(
+    title = "Grades by Subject and Gender",
+    subtitle = "Boxplots showing grade distribution across subjects"
+  )
 ```
 
 9. Your analysis must include one image or table (not one you created yourself, but one you have saved locally or one from the web).

@@ -9,5 +9,8 @@ website:
         href: index.qmd
       - text: "About"
         href: about.qmd
-      - text: "Research"
+      - text: "Example Analysis"
         href: exampleanalysis.qmd
+      - text: "Part 2"
+        href: part2.qmd
+        
