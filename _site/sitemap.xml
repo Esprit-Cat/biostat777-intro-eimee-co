@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/part2.html</loc>
-    <lastmod>2025-11-06T19:53:10.965Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/index.html</loc>
-    <lastmod>2025-11-07T21:29:36.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/HOME.html</loc>
-    <lastmod>2025-11-07T21:26:41.454Z</lastmod>
+    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/about.html</loc>
+    <lastmod>2025-11-06T19:53:10.962Z</lastmod>
   </url>
   <url>
     <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/exampleanalysis.html</loc>
     <lastmod>2025-11-07T21:26:45.183Z</lastmod>
   </url>
   <url>
-    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/about.html</loc>
-    <lastmod>2025-11-06T19:53:10.962Z</lastmod>
+    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/HOME.html</loc>
+    <lastmod>2025-11-07T21:26:41.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Esprit-Cat.github.io/biostat777-intro-eimee-co/index.html</loc>
+    <lastmod>2025-11-07T21:29:36.207Z</lastmod>
   </url>
 </urlset>

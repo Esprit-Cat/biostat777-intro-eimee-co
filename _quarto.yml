@@ -6,11 +6,10 @@ website:
   navbar:
     left:
       - text: "Home"
-        href: index.qmd
+        href: HOME.qmd
       - text: "About"
         href: about.qmd
       - text: "Example Analysis"
         href: exampleanalysis.qmd
       - text: "Part 2"
-        href: part2.qmd
-        
+        href: index.qmd
