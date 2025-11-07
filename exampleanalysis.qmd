@@ -27,6 +27,7 @@ curl -L -o students.csv https://raw.githubusercontent.com/stephaniehicks/jhustat
 This came from Part 2 of Project 1 of the course: https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html
 
 4. You must include a link to a data dictionary for the data or create one inside the webpage.
+
 Below is the data dictionary for this data frame. 
 ```{r}
 data_dictionary <- data.frame(
@@ -43,7 +44,7 @@ print(data_dictionary)
 library(tidyverse)
 
 students <- read.csv("students.csv")
-str(students)
+print(students)
 
 #Mutate
 students <- students %>%

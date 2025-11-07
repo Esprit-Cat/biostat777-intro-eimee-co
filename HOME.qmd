@@ -1,0 +1,14 @@
+---
+title: "MyWebsite"
+format: html
+---
+
+# Eimee Co
+
+Hi! I’m Eimee. I enjoy eating, sleeping and cats. 
+
+![Something I enjoy]("images/1.jpg")
+
+- **Link to your GitHub repository**: https://github.com/Esprit-Cat/biostat777-intro-eimee-co/tree/main
+
+- **Link to your deployed website**: https://esprit-cat.github.io/biostat777-intro-eimee-co/exampleanalysis.html

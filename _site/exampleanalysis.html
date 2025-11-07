@@ -216,8 +216,9 @@ We also included a personal image for illustration purposes <span class="citatio
 <p>I used the curl command to get the database from this particular page: curl -L -o students.csv https://raw.githubusercontent.com/stephaniehicks/jhustatprogramming2025/main/projects/01-project/students.csv</p>
 <p>This came from Part 2 of Project 1 of the course: https://www.stephaniehicks.com/jhustatprogramming2025/projects/01-project/index.html</p>
 <ol start="4" type="1">
-<li>You must include a link to a data dictionary for the data or create one inside the webpage. Below is the data dictionary for this data frame.</li>
+<li>You must include a link to a data dictionary for the data or create one inside the webpage.</li>
 </ol>
+<p>Below is the data dictionary for this data frame.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_dictionary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"Name"</span>, <span class="st">"Age"</span>, <span class="st">"Gender"</span>, <span class="st">"Grade"</span>, <span class="st">"Subject"</span>),</span>
@@ -254,15 +255,19 @@ We also included a personal image for illustration purposes <span class="citatio
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"students.csv"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   10 obs. of  6 variables:
- $ ID     : int  1 2 3 4 5 6 7 8 9 10
- $ Name   : chr  "Alice" "Bob" "Charlie" "Diana" ...
- $ Age    : int  20 22 23 21 20 22 23 21 20 22
- $ Gender : chr  "F" "M" "M" "F" ...
- $ Grade  : int  88 76 90 85 92 72 78 88 85 79
- $ Subject: chr  "Math" "History" "Math" "Science" ...</code></pre>
+<pre><code>   ID    Name Age Gender Grade Subject
+1   1   Alice  20      F    88    Math
+2   2     Bob  22      M    76 History
+3   3 Charlie  23      M    90    Math
+4   4   Diana  21      F    85 Science
+5   5     Eve  20      F    92    Math
+6   6   Frank  22      M    72 History
+7   7   Grace  23      F    78 Science
+8   8   Heidi  21      F    88    Math
+9   9    Ivan  20      M    85 Science
+10 10    Judy  22      F    79 History</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mutate</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
