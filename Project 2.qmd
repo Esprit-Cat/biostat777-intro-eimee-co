@@ -1,0 +1,191 @@
+---
+title: "Project 2"
+---
+
+```{r}
+install.packages("tidycensus", repos = "https://cloud.r-project.org")
+install.packages("purrr", repos = "https://cloud.r-project.org")
+library(tidycensus)
+library(tidyverse)
+
+census_api_key("dcff66db10ae72ca67f1225694d5f11468367056", install = TRUE,overwrite=TRUE)
+```
+
+Part 1
+1. Choose a question to investigate. Describe what is the question you aim to answer with the data and what you want to visualize.
+
+I want find out number of Filipinos and Chinese in the US. 
+I also want the distribution of male vs female in the Asian population
+
+2. Extract data from the tidycensus API. Use at least three different calls to the tidycensus API to extract out different datasets. For example, these could be across years, locations, or variables.
+
+I RECEIVED CODE AND DEBUGGING HELP FROM CHAT GPT .
+```{r}
+# Total counts from detailed race tables 2023
+count_2023 <- get_acs(
+  geography = "us",
+  table = "B02015",
+  year = 2023,
+  survey = "acs1"
+)
+
+#Counts 2011
+count_2011 <- get_acs(
+  geography = "us",
+  table = "B02015",
+  year = 2011,
+  survey = "acs1"
+)
+
+#Age, Sex 2022 (5 years)
+age_sex_2022 <- get_acs(
+  geography = "us",
+  table = "B01001D", 
+  year = 2022, 
+  survey = "acs5", 
+  cache_table = TRUE
+)
+```
+
+3. Clean the data. Include some form of data wrangling and data visualization using packages such as dplyr or tidyr. Other packages that might be helpful to you include lubridate, stringr, and forcats. You must use at least two functions from purrr.
+
+We first look at the counts of Chinese and Filipinos in the US. 
+```{r}
+#Combines count_2011 and count_2023
+all_counts <- bind_rows(
+  mutate(count_2023, year = 2023),
+  mutate(count_2011, year = 2011)
+)
+
+#Filters to only include Filipinos and Chinese
+asian_counts <- all_counts %>%
+  filter(str_detect(variable, "B02015_008|B02015_007|B02015_008E|B02015_007E")) %>%
+  mutate(
+    race = case_when(
+      str_detect(variable, "B02015_008|B02015_008E") ~ "Filipino",
+      str_detect(variable, "B02015_007|B02015_007E") ~ "Chinese",
+      TRUE ~ "Other"
+    )
+  ) %>%
+  select(NAME, year, race, estimate, moe)
+
+#Summarizes count by race
+#This part of the code was done by chatGPT
+summary_counts <- asian_counts %>%
+  split(.$race) %>%
+  map_dfr(~ summarise(.x,
+                      total = sum(estimate),
+                      .by = year),
+          .id = "race")
+
+print(summary_counts)
+```
+The graph shows the number of Filipinos and Chinese in 2011 and 2023 respectively. The 2023 data pull is obviously inaccurate, I am unsure why, even after observing the data table. Attempting to use 2024 data resulted in same findings.
+```{r}
+print(count_2023)
+```
+Code with help from chatGPT. I tried to understand the code and chose this one after vetoing the others. 
+```{r}
+sex_totals_final <- age_sex_2022 %>%
+  filter(variable %in% c("B01001D_002", "B01001D_017")) %>%
+  mutate(
+    Sex_Group = if_else(
+      variable == "B01001D_002",
+      "Male",
+      "Female"
+    )
+  ) %>%
+  select(Sex_Group, Estimate = estimate) 
+
+print(sex_totals_final)
+
+#Purrr function by chatGPT
+total_pop <- sum(sex_totals_final$Estimate)
+sex_totals_with_percent <- sex_totals_final %>%
+  mutate(
+    Percent = map_dbl(
+      .x = Estimate, 
+      .f = ~ (.x / total_pop) * 100
+    )
+  )
+print(sex_totals_with_percent)
+```
+4. Visualize the data. Create data visualizations of your choice. However, your analysis should include at least three plots with you using at least two different geom_*() functions from ggplot2 (or another package with geom_*() functions).
+
+with code help from chat GPT To add labels and prettify the charts
+```{r}
+ggplot(summary_counts, aes(x = factor(year), y = total, fill = race)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = total, y = total + 0),  # just above bar
+            position = position_dodge(width = 0.9)) +
+  labs(x = "Year", y = "Total", fill = "Race", title = "Counts by Year and Race")
+
+sex_totals_final <- sex_totals_final %>%
+  mutate(perc = Estimate / sum(Estimate) * 100,
+         label = paste0(Sex_Group, "\n", Estimate, " (", round(perc, 1), "%)"))
+
+ggplot(sex_totals_final, aes(x = "", y = Estimate, fill = Sex_Group)) +
+  geom_col() +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = label, y = cumsum(Estimate) - Estimate/2)) +  # centered on slice
+  labs(fill = "Sex", title = "Sex Distribution") +
+  theme_void()
+
+sex_totals_final <- sex_totals_final %>%
+  mutate(label = paste0(Estimate, " (", round(Estimate / sum(Estimate) * 100, 1), "%)"))
+
+ggplot(sex_totals_final, aes(x = "Asian Population", y = Estimate, fill = Sex_Group)) +
+  geom_col() +
+  geom_text(aes(label = label, y = cumsum(Estimate) - Estimate/2)) +  # center inside each segment
+  labs(x = "", y = "Population", fill = "Sex", title = "Asian Population by Sex")
+
+```
+
+5. Report your findings. Write up your data analysis as a brief report. The report should be readable by a scientist uninvolved in the study. Think about how you can write a data analysis that is both concise, but also informative. Include a paragraph summarizing your methods and key findings. Include any limitations or potential biases in pulling data from the API or the analysis. Be sure to comment and organize your code so is easy to understand what you are doing and consider including portions of the code in an Appendix, if helpful.
+
+There were more Chinese than Filipinos in 2011. The data for 2023 was inaccurate, I likely pulled the wrong data from ACS. (Or used the wrong code). There are more women (48%) than men (52%)in the Asian population (100%).
+
+Part 2
+
+In this part, you will use the rvest package to scrape data from a website, wrangle and analyze the data, and summarize your findings.
+
+1. Choose a website to scrape. 
+Chosen Website: https://books.toscrape.com/ 
+
+2. Extract data with rvest. Here, you will want to identify the specific HTML elements or CSS selectors containing the data. Then, use rvest functions like read_html(), html_elements(), and html_text() or html_table() to retrieve the data.
+```{r}
+install.packages("rvest", repos = "https://cloud.r-project.org")
+library(rvest)
+
+page <- read_html("https://books.toscrape.com")
+
+price <- page %>%
+ html_elements(".price_color")  %>%
+ html_text2()
+
+print(price)
+```
+
+3. Clean the data. Next, perform some basic wrangling, such as remove extra whitespace, handle missing values, and convert data types as needed. You might find the functions from dplyr or tidyr useful for any additional transformations, such as renaming columns, filtering rows, or creating new variables.
+```{r}
+price_numeric <- as.numeric(substring(price, 2))
+price_numeric
+```
+
+4. Analyze the data. Perform a simple analysis of your choice. For example, you could
+-Count how many times specific words or themes appear.
+-Create a summary statistic (e.g., average rating, job salary, team win percentage).
+-Create a data visualization (e.g., bar chart, histogram) of an interesting metric.
+```{r}
+mean_price <- mean(price_numeric)
+min_price <- min(price_numeric)
+max_price <- max(price_numeric)
+
+cat("mean:", mean_price, "min:", min_price, "max:", max_price)
+```
+
+5. Report your findings. Write up your data analysis as a brief report. The report should be designed for a technical audience, such as a technical manager who appreciates the technical details. Think about how you can write a data analysis that is both concise, but also informative. Include a paragraph summarizing your methods and key findings. Include any limitations or potential biases in scraping data or the analysis. Be sure to comment and organize your code so is easy to understand what you are doing.
+
+The average price of books in the website was 38.05 pounds, with the range falling between 13.99 and 57.25 pounds. 
+
+This is an exercise to practice using rvest and gadget selector, and the website used is also a dummy website for practicing scraping. 
