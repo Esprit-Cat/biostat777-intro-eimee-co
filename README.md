@@ -1,2 +1,0 @@
-This was made by Eimee Co, for the Stat Programming class. I had a lot of help from chatGPT and from my classmate Nina. 
-Attached is link where it can be found: https://github.com/Esprit-Cat/biostat777-intro-eimee-co
